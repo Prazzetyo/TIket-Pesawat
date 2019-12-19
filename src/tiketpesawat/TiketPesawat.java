@@ -16,6 +16,7 @@ import java.util.Scanner;
  */
 public class TiketPesawat {
     static Scanner sc = new Scanner(System.in);
+    static String oldDate;
     static String[][] pesawat = new String[30][9];
     static String[] rute = {"Jakarta-Surabaya", "Surabaya-Jakarta", "Jakarta-Bali", "Jakarta-Yogyakarta", "Bali-Jakarta", "Jakarta-Medan",
         "Yogyakarta-Jakarta", "Medan-Jakarta", "Jakarta-Makassar"};
@@ -98,28 +99,34 @@ public class TiketPesawat {
     
     static void pesan() {
         System.out.println("Jumlah kursi : " + total_kursi);
-        System.out.print("Masukkan Tanggal Keberangkatan(dd-MM-yyyy) : ");
-        String oldDate = sc.next();
-        SimpleDateFormat tanggal = new SimpleDateFormat("dd-MM-yyyy");
-        Calendar c = Calendar.getInstance();
-        try {
-            c.setTime(tanggal.parse(oldDate)); 
-//digunakan untuk untuk menangkap kesalahan
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.print("Masukkan kode\t: ");
-        kode_maskapai = sc.next();
-
-        do {
-            System.out.print("jumlah kursi\t: ");
-            kursi = sc.nextInt();
-            if (kursi > 5) {
-                System.out.println("Maksimal pemesanan 5 tiket!");
-            } else if (kursi < 1) {
-                System.out.println("Minimal pemesanan 1 tiket!");
+        do {                
+            System.out.print("Masukkan Tanggal Keberangkatan(dd-MM-yyyy) : ");
+            oldDate = sc.next();
+            SimpleDateFormat tanggal = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar c = Calendar.getInstance();
+            try {
+                c.setTime(tanggal.parse(oldDate)); 
+    //digunakan untuk untuk menangkap kesalahan
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } while (kursi > 5 || kursi < 1);
+            System.out.print("Masukkan kode\t: ");
+            kode_maskapai = sc.next();
+
+            do {
+                System.out.print("jumlah kursi\t: ");
+                kursi = sc.nextInt();
+                if (kursi > 5) {
+                    System.out.println("Maksimal pemesanan 5 tiket!");
+                } else if (kursi < 1) {
+                    System.out.println("Minimal pemesanan 1 tiket!");
+                }
+            } while (kursi > 5 || kursi < 1);
+            
+            System.out.print("apakah pilihan benar? (Y/T) ");
+                    ulang = sc.next().charAt(0);
+        } while (ulang == 't' || ulang == 'T');
+        
 
         for (int i = 0; i < pesawat.length; i++) {
             if (pesawat[i][0] != null) {
@@ -161,6 +168,16 @@ public class TiketPesawat {
         }
     }
     
+    static void menu(){
+        System.out.println("");
+            System.out.println("\t  ----------------WKWKWK.com-------------------");
+        System.out.println("===============================================================");
+        System.out.println("Pilihan Menu");
+        System.out.println("1. Rute Penerbangan");
+        System.out.println("2. Pesan");
+        System.out.println("3. Exit");
+        System.out.println("===============================================================");
+    }
     /**
      * @param args the command line arguments
      */
@@ -170,14 +187,7 @@ public class TiketPesawat {
         // TODO code application logic here
         TampungNilai();
         do {
-            System.out.println("");
-            System.out.println("\t  ----------------WKWKWK.com-------------------");
-            System.out.println("===============================================================");
-            System.out.println("Pilihan Menu");
-            System.out.println("1. Rute Penerbangan");
-            System.out.println("2. Pesan");
-            System.out.println("3. Exit");
-            System.out.println("===============================================================");
+            menu();
             do {
             System.out.print("Masukkan Pilihan Anda : ");
             pilih_menu = sc.nextInt();
